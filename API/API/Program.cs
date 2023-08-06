@@ -5,10 +5,20 @@ using FluentValidation;
 using MediatR;
 using System.Reflection;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("*");
+                      });
 
+
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -30,6 +40,7 @@ AssemblyScanner.FindValidatorsInAssembly(Assembly.Load("Application")).ForEach(p
     builder.Services.Add(ServiceDescriptor.Scoped(pair.InterfaceType, pair.ValidatorType));
     // Also register it as its concrete type as well as the interface type
     builder.Services.Add(ServiceDescriptor.Scoped(pair.ValidatorType, pair.ValidatorType));
+
 });
 
 var app = builder.Build();
@@ -44,7 +55,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();
 
 app.MapControllers();
