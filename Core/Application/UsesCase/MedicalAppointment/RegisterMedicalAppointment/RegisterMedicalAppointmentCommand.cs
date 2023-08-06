@@ -1,13 +1,12 @@
 ﻿using Application.Base;
 using Domain.Contracts.Adapter.IMapper;
 using Domain.Contracts.Persistence;
-using Domain.DTOs;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.UsesCase.MedicalAppointment.RegisterMedicalAppointment
 {
-    internal class RegisterMedicalAppointmentCommand : IRequestHandler<RegisterMedicalAppointmentRequest, ResponseBase<RegisterMedicalAppointmentResponse>>
+    public class RegisterMedicalAppointmentCommand : IRequestHandler<RegisterMedicalAppointmentRequest, ResponseBase<RegisterMedicalAppointmentResponse>>
     {
         private readonly IMedicalAppointmentRepository _repository;
         private readonly IMapper _mapper;

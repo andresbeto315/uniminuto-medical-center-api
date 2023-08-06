@@ -51,5 +51,17 @@ namespace Persistence.Repositories
 
             return users;
         }
+
+        public int Register(UserEntity entity)
+        {
+            this.Add(entity);
+            return 0;
+        }
+
+        public int Update(UserEntity entity)
+        {
+            this.Edit(entity);
+            return 0;
+        }
     }
 }

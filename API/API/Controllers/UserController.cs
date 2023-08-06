@@ -1,5 +1,7 @@
 ﻿using Application.UsesCase.User.GetUserById;
 using Application.UsesCase.User.GetUsersByType;
+using Application.UsesCase.User.RegisterUser;
+using Application.UsesCase.User.UpdateUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +28,20 @@ namespace API.Controllers
         [HttpGet()]
         [Route("get-type")]
         public IActionResult GetByTypeId([FromQuery] GetUsersByTypeRequest request)
+        {
+            return Ok(_mediator.Send(request).Result);
+        }
+
+        [HttpPost()]
+        [Route("register")]
+        public IActionResult Register([FromBody] RegisterUserRequest request)
+        {
+            return Ok(_mediator.Send(request).Result);
+        }
+
+        [HttpPut()]
+        [Route("update")]
+        public IActionResult Update([FromBody] UpdateUserRequest request)
         {
             return Ok(_mediator.Send(request).Result);
         }
